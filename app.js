@@ -28,7 +28,6 @@ const resetGame = () => {
 
 boxes.forEach((box) => {
     box.addEventListener("click", () => {
-        count++;
         if (turn0) {//player O
             box.innerText= "O";
             turn0=false;
@@ -37,10 +36,15 @@ boxes.forEach((box) => {
             turn0 = true;
         }
         box.disabled = true;
-        checkWinner();
-        checkDrawMatch();
+        count++;
+        let isWinner = checkWinner();
+        if( count === 9 && !isWinner){
+            matchDdraw();
+        }
+        
     });
 });
+
 
 const disableBoxes = () => {
     for(box of boxes){
@@ -55,16 +59,17 @@ const enableBoxes = () => {
     }
 };
 
-const checkDrawMatch = () => {
-    if(count === 9){  
+const matchDdraw = () => {
+      
     msg.innerText = `This Match is DRAW`;
     msgContainer.classList.remove("hide");
-    }
+    box.disabled = true;
 };
 
 const showWinner = (winner) => {
     msg.innerText = `Congratulations, Winner is ${winner}`;
     msgContainer.classList.remove("hide")
+    count = 0;
 };
 
 const checkWinner = () => {
@@ -78,6 +83,7 @@ const checkWinner = () => {
                 console.log("winner", pos1Val);
                 disableBoxes();
                 showWinner(pos1Val);
+                return true;
             }
         }
     }
