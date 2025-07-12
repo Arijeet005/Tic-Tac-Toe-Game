@@ -24,6 +24,7 @@ const resetGame = () => {
     turn0 =true;
     enableBoxes();
     msgContainer.classList.add("hide")
+    count = 0;
 }
 
 boxes.forEach((box) => {
@@ -64,6 +65,7 @@ const matchDdraw = () => {
     msg.innerText = `This Match is DRAW`;
     msgContainer.classList.remove("hide");
     box.disabled = true;
+    count = 0;
 };
 
 const showWinner = (winner) => {
